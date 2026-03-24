@@ -1,134 +1,87 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <queue>   
-#include <climits> 
-
 using namespace std;
 
 class CITY
 {
-public:
-    int totalnodes = 8;
-    vector<pair<int, int>> G[8];
-    vector<pair<int, int>> coordinates[8];
+    private:
 
-private:
     int rows;
     int cols;
+    int totoalnodes;
+     vector<vector<pair<int,int>>> adj;
 
-public:
-    CITY(int r, int c)
+    public:
+
+    CITY(int r,int c)
     {
-        rows = r;
-        cols = c;
-    }
-    void Setlocations()
-    {
-        for (int i = 0; i < totalnodes; i++)
-        {
-            cout << "ENTER COORDINATES OF LOCATION NO  " << i + 1 << endl;
-            int x1, y1;
-            cin >> x1 >> y1;
-            coordinates[i].push_back({x1, y1});
-        }
+        rows=r;
+        cols=c;
+        totoalnodes=r*c;
     }
     void Citygrid()
     {
-        int s, d, w;
-        for (int i = 0; i < totalnodes; i++)
-        {
-            cout << "ENTER SOURCE, DESTINATION AND WEIGHT OF ROAD: " << endl;
-            cin >> s >> d >> w;
-            G[s].push_back({d, w});
-            G[d].push_back({s, w});
-        }
+
     }
     void Newroad()
     {
-        cout << "ENTER SOURCE, DESTINATION AND WEIGHT OF NEW ROAD: " << endl;
-        int s, d, w;
-        cin >> s >> d >> w;
-        G[s].push_back({d, w});
-        G[d].push_back({s, w});
+
     }
     void Neighbour()
     {
-        int n;
-        cout << "ENTER NEIGHBOURHOOD " << endl;
-        cin >> n;
-        cout << "NEIGHBOURING AREAS ARE : " << endl;
-        for (int i = 0; i < G[n].size(); i++)
-            cout << G[n][i].first << endl;
+
     }
-    void Getweight(int src, int des)
+    void Getweight()
     {
-        for (int i = 0; i < G[src].size(); i++)
-        {
-            if (G[src][i].first == des)
-            {
-                cout << "WEIGHT OF ROAD IS : " << G[src][i].second << endl;
-                return;
-            }
-        }
-        cout << "NO DIRECT ROAD EXISTS BETWEEN THE LOCATIONS!" << endl;
+
     }
-    void Updatetraffic(int src, int des, int w)
+    void Updatetraffic()
     {
-        for (int i = 0; i < G[src].size(); i++)
-        {
-            if (G[src][i].first == des)
-            {
-                G[src][i].second = w;
-                break;
-            }
-        }
-        for (int i = 0; i < G[des].size(); i++)
-        {
-            if (G[des][i].first == src)
-            {
-                G[des][i].second = w;
-                break;
-            }
-        }
+
     }
     int Totalnodes()
     {
-        return totalnodes;
-    }
-    int Calculatedistance(int src, int dest)
-    {
-        int x1 = coordinates[src][0].first;
-        int y1 = coordinates[src][0].second;
-        int x2 = coordinates[dest][0].first;
-        int y2 = coordinates[dest][0].second;
-        return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+      return 0;
     }
 };
 
 class NODE
 {
-private:
-    int x, y;
+    private:
+
+    int x,y;
     bool blocked;
     bool emergency;
-    string emergencytype;
+    string ememrgencytype;
 
-public:
-    NODE() {}
-    void Setblocked() {}
-    void Setemergency() {}
-    void Reset() {}
+    public:
+
+    NODE()
+    {
+
+    }
+   void Setblocked()
+    {
+
+    }
+    void Setemergency()
+    {
+
+    }
+    void Reset()
+    {
+
+    }
 };
-
 class VEHICLES
 {
     static int count;
     static int Maxfuel;
 
-private:
-    string id;
-    int speed;
+    private :
+
+    int id;
     string type;
     int loc;
     int fuel;
@@ -136,25 +89,23 @@ private:
     vector<int> currentpath;
     int targetemergency;
 
-public:
+    public :
+
     VEHICLES()
     {
-        id = "";
-        type = "";
-        loc = 0;
-        fuel = 0;
-        speed = 30;
-        available = false;
+        id=0;
+        type="";
+        loc=0;
+        fuel=0;
     }
 
-    void Setvehicle(string id, string type, int loc, int s)
+    void Setvehicle(int id,string type,int loc)
     {
-        this->id = id;
-        this->type = type;
-        this->loc = loc;
-        this->fuel = Maxfuel;
-        this->speed = s;
-        this->available = true;
+        this->id=id;
+        this->type=type;
+        this->loc=loc;
+        this->fuel=Maxfuel;
+        this->available=true;
         count++;
     }
     static int vehiclecount()
@@ -163,94 +114,147 @@ public:
     }
     static void Setmaxfuel(int max)
     {
-        Maxfuel = max;
+        Maxfuel=max;
     }
-    string Getid()
+    int Getid()
     {
-        return id;
+      return id;
     }
     string Gettype()
     {
-        return type;
+      return type;
     }
-    int Getspeed()
+    void Assignemergency()
     {
-        return speed;
+
+    }
+    void Assignpath()
+    {
+
+    }
+    void Reducefuel()
+    {
+
+    }
+    void Refuel()
+    {
+        fuel=Maxfuel;
     }
     bool Isavailable()
     {
-        return available;
+      if(available)
+      {
+          return true;
+      }
+      else
+      {
+          return false;
+      }
     }
     int Getlocation()
     {
-        return loc;
+      return loc;
     }
 };
+class EMERGENCY
+{
+    private :
 
+    int id;
+    string type;
+    int loc;
+    int severity;
+    int status;
+    int deadline;
+
+    public :
+
+    EMERGENCY()
+    {
+
+    }
+    void Markresolved()
+    {
+
+    }
+    bool Isactive()
+    {
+       return false;
+    }
+    void Getpriority()
+    {
+
+    }
+    void Getlocation()
+    {
+
+    }
+};
 class PATHFINDER
 {
-public:
-    int CalPath(int src, int dest, CITY &city)
+    public :
+
+    vector <int> CalPath(int src,int dest,CITY &city)
     {
-        int n = city.Totalnodes();
-        vector<int> dist(n, INT_MAX);
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-
-        dist[src] = 0;
-        pq.push({0, src});
-
-        while (!pq.empty())
+        int nodeCount=city.Totalnodes();
+        vector<int> dist(nodeCount,INT_MAX);
+        vector<bool> visited(nodeCount,false);
+        vector<int> parent(nodeCount,-1);
+        dist[src]=0;
+        for(int i=0;i<nodeCount-1;i++)
         {
-            int d = pq.top().first;
-            int u = pq.top().second;
-            pq.pop();
-
-            if (d > dist[u])
-                continue;
-
-            for (auto &neighbor : city.G[u])
+            int curr=-1;
+            for(int nd=0;nd<nodeCount;nd++)
             {
-                int v = neighbor.first;
-                int weight = neighbor.second;
-
-                if (dist[u] + weight < dist[v])
+                if(!visited[nd]&&(curr==-1||dist[nd]<dist[curr]))
+                    curr=nd;
+            }
+            if(curr==-1||dist[curr]==INT_MAX) break;
+            visited[curr]=true;
+            for(auto &edge : city.adj[curr])
+            {
+                int node=edge.first;
+                int weight=edge.second;
+                if(!visited[node]&&dist[curr]!=INT_MAX&&dist[curr]+weight<dist[node])
                 {
-                    dist[v] = dist[u] + weight;
-                    pq.push({dist[v], v});
+                    dist[node]=dist[curr]+weight;
+                    parent[node]=curr;
                 }
             }
         }
-        return dist[dest];
+        vector<int> path;
+        int node=dest;
+        while(node!=-1)
+        {
+            path.insert(path.begin(),node);
+            node=parent[node];
+        }
+        return path;
+    }
+    void UpdatePath()
+    {
+
+    }
+    void Getdistance(int dest)
+    {
+
     }
 };
-
 class DISPATCHER
 {
-public:
-    int Findvehicle(int emergencyLoc, string type, VEHICLES *V, int totalVehicles, CITY &city)
+    public:
+
+    int Findvehicle()
     {
-        PATHFINDER pf;
-        int bestIdx = -1;
-        int minTime = INT_MAX;
+       return 0;
+    }
+    void Assignvehicle()
+    {
 
-        for (int i = 0; i < totalVehicles; i++)
-        {
-            if (V[i].Isavailable() && V[i].Gettype() == type)
-            {
-                int distance = pf.CalPath(V[i].Getlocation(), emergencyLoc, city);
+    }
+    void Computeroute()
+    {
 
-                if (distance != INT_MAX)
-                {
-                    int travelTime = distance / V[i].Getspeed();
-                    if (travelTime < minTime)
-                    {
-                        minTime = travelTime;
-                        bestIdx = i;
-                    }
-                }
-            }
-        }
-        return bestIdx;
     }
 };
 
@@ -259,53 +263,211 @@ int VEHICLES::Maxfuel = 0;
 
 int main()
 {
-    int vCount = 0;
-    int MaxVeh = 5;
-    VEHICLES *V = new VEHICLES[MaxVeh];
-    CITY city(10, 20);
-    DISPATCHER dispatcher;
+    int i=0;
+    int MaxVeh=5;
+    VEHICLES * V=new VEHICLES[MaxVeh];
     int ch;
-
-    cout << "WELCOME TO THE URBAN LIFELINE SYSTEM!" << endl;
+    cout << "WELCOME TO EMERGENCY VEHICLE DISPATCH SYSTEM!" << endl;
     VEHICLES::Setmaxfuel(100);
-
-    while (true)
+    while(true)
     {
-        cout << "\n1.BUILD CITY\n2.ADD RESPONDER\n3.DISPATCH TO CRISIS\n4.EXIT\nCHOICE: ";
+        cout << "1.BUILD CITY" << endl;
+        cout << "2.ADD VEHICLE" << endl;
+        cout << "3.CREATE EMERGENCY" << endl;
+        cout << "4.DISPATCH VEHICLE" << endl;
+        cout << "5.EXIT" << endl;
+        cout << "ENTER YOUR CHOICE: ";
         cin >> ch;
+       switch(ch)
+       {
+           case 1:
+           {
+            bool c=true;
+            int n;
+               while(c)
+              {
+                 cout<< "ENTER 1 TO CHANGE GRID SIZE"<< endl;
+                 cout<< "ENTER 2 TO ADD LOCATION"<< endl;
+                 cout<< "ENTER 3 TO ADD ROAD"<< endl;
+                 cout<< "ENTER 4 TO VIEW NEIGHBOURHOOD"<< endl;
+                 cout<< "ENTER 5 TO GET WEIGHT OF ROAD"<< endl;
+                 cout<< "ENTER 6 TO UPDATE TRAFFIC"<< endl;
+                 cout<< "ENTER 7 TO GET TOTAL LOCATIONS"<< endl;
+                 cout<< "ENTER 8 TO EXIT"<< endl;
+                 cout<< "ENTER YOUR CHOICE: ";
+                 cin >> n;
+                 switch(n)
+                 {
+                     case 1:
+                     {
+                         // code to change grid size
+                         break;
+                     }
+                     case 2:
+                     {
+                         // code to add location
+                         break;
+                     }
+                     case 3:
+                     {
+                         // code to add road
+                         break;
+                     }
+                     case 4:
+                     {
+                         // code to view neighbourhood
+                         break;
+                     }
+                     case 5:
+                     {
+                         // code to get weight of road
+                         break;
+                     }
+                     case 6:
+                     {
+                         // code to update traffic
+                         break;
+                     }
+                     case 7:
+                     {
+                         // code to get total locations
+                         break;
+                     }
+                     case 8:
+                     {
+                         cout << "EXITING BUILD CITY MODULE!" << endl;
+                         c=false;
+                         break;
+                     }
+                     default:
+                     {
+                         cout << "INVALID CHOICE! PLEASE TRY AGAIN." << endl;
+                         break;
+                     }
+                 }
+              }
+              break;
+           }
+           case 2:
+           {
+               int n;
+               bool b=true;
+                while(b)
+                {
+                    cout<< "ENTER 1 TO ADD AMBULANCE"<< endl;
+                    cout<< "ENTER 2 TO ADD FIRE TRUCK"<< endl;
+                    cout<< "ENTER 3 TO ADD POLICE CAR"<< endl;
+                    cout<< "ENTER 4 TO EXIT"<< endl;
+                    cout<< "ENTER 5 TO VIEW ALL VEHICLES"<< endl;
+                    cout<< "ENTER YOUR CHOICE: ";
+                    cin >> n;
+                    if(i>=MaxVeh&&n<4)
+                        {
+                            cout << "MAXIMUM VEHICLE LIMIT REACHED! CANNOT ADD MORE VEHICLES." << endl;
+                            break;
+                        }
+                    switch(n)
+                    {
+                        case 1:
+                        {
+                            V[i++].Setvehicle(0001,"Ambulance",0);
+                            break;
+                        }
+                        case 2:
+                        {
+                            V[i++].Setvehicle(1001,"Fire Truck",0);
+                            break;
+                        }
+                        case 3:
+                        {
+                            V[i++].Setvehicle(2001,"Police Car",0);
+                            break;
+                        }
+                        case 4:
+                        {
+                            cout << "EXITING ADD VEHICLE MODULE!" << endl;
+                            b=false;
+                            break;
+                        }
+                        case 5:
+                        {
+                            cout << "CURRENT VEHICLES IN THE SYSTEM:" << endl;
+                            cout<<VEHICLES::vehiclecount()<<endl;
+                             for(int j=0;j<i;j++)
+                             {
+                                 cout << "ID: " << V[j].Getid() << " TYPE: " << V[j].Gettype() << endl;
+                             }
+                            break;
+                        }
+                        default:
+                        {
+                            cout << "INVALID CHOICE! PLEASE TRY AGAIN." << endl;
+                            break;
+                        }
+                    }
+                }
+               break;
+           }
+           case 3:
+           {
+               int n;
+               bool b=true;
+                while(b)
+                {
+                    cout<< "ENTER 1 TO CREATE MEDICAL EMERGENCY"<< endl;
+                    cout<< "ENTER 2 TO CREATE FIRE EMERGENCY"<< endl;
+                    cout<< "ENTER 3 TO CREATE CRIME EMERGENCY"<< endl;
+                    cout<< "ENTER 4 TO EXIT"<< endl;
+                    cout<< "ENTER YOUR CHOICE: ";
+                    cin >> n;
+                    switch(n)
+                    {
+                        case 1:
+                        {
 
-        if (ch == 4)
-            break;
-
-        switch (ch)
-        {
-        case 1:
-            city.Citygrid();
-            city.Setlocations();
-            break;
-        case 2:
-            if (vCount < MaxVeh)
-            {
-                string id, type;
-                int loc, speed;
-                cout << "Enter ID, Type (Medical/Fire), Location, Speed: ";
-                cin >> id >> type >> loc >> speed;
-                V[vCount++].Setvehicle(id, type, loc, speed);
-            }
-            break;
-        case 3:
-            int target;
-            string type;
-            cout << "Enter Crisis Location (0-7) and Type required: ";
-            cin >> target >> type;
-            int best = dispatcher.Findvehicle(target, type, V, vCount, city);
-            if (best != -1)
-                cout << "\n[SUCCESS] Dispatching Responder: " << V[best].Getid() << endl;
-            else
-                cout << "\n[ALERT] No specialized responders found!" << endl;
-            break;
-        }
+                            break;
+                        }
+                        case 2:
+                        {
+                            // code to create fire emergency
+                            break;
+                        }
+                        case 3:
+                        {
+                            // code to create crime emergency
+                            break;
+                        }
+                        case 4:
+                        {
+                            cout << "EXITING CREATE EMERGENCY MODULE!" << endl;
+                            b=false;
+                            break;
+                        }
+                        default:
+                        {
+                            cout << "INVALID CHOICE! PLEASE TRY AGAIN." << endl;
+                            break;
+                        }
+                    }
+                }
+               break;
+           }
+           case 4:
+           {
+               // code to dispatch vehicle
+               break;
+           }
+           case 5:
+           {
+               cout << "THANK YOU FOR USING THE SYSTEM!" << endl;
+               return 0;
+           }
+           default:
+           {
+               cout << "INVALID CHOICE! PLEASE TRY AGAIN." << endl;
+               break;
+           }
+       }
     }
-    delete[] V;
     return 0;
 }
